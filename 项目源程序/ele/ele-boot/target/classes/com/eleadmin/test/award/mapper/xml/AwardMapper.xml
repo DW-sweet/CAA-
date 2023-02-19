@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleadmin.test.award.mapper.AwardMapper">
+
+    <!-- 关联查询sql -->
+    <sql id="selectSql">
+        SELECT a.award_Id,a.award_Name,a.age,a.program,a.racename,a.money,a.awarder,a.grade,a.way,a.gender,a.college,a.instructor,a.serial,a.email
+        FROM test_award a
+        <where>
+
+            <if test="param.awardId != null">
+                AND a.award_id = #{param.awardId}
+            </if>
+            <if test="param.awardName != null">
+                AND a.award_name LIKE CONCAT('%', #{param.awardName}, '%')
+            </if>
+
+        </where>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="selectPageRel" resultType="com.eleadmin.test.award.entity.Award">
+        <include refid="selectSql"></include>
+    </select>
+
+    <!-- 查询全部 -->
+    <select id="selectListRel" resultType="com.eleadmin.test.award.entity.Award">
+        SELECT a.award_Id,a.award_Name,a.age,a.program,a.racename,a.money,a.awarder,a.grade,a.way,a.gender,a.college,a.instructor,a.serial,a.email
+        FROM test_award a
+        <where>
+
+            <if test="param.awardId != null">
+                AND a.award_id = #{param.awardId}
+            </if>
+            <if test="param.awardName != null">
+                AND a.award_name LIKE CONCAT('%', #{param.awardName}, '%')
+            </if>
+
+        </where>
+    </select>
+
+</mapper>

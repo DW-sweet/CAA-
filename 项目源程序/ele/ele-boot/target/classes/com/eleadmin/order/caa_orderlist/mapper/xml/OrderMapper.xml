@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleadmin.order.caa_orderlist.mapper.OrderMapper">
+
+    <!-- 关联查询sql -->
+    <sql id="selectSql">
+        SELECT a.Order_id,a.Order_no,a.Order_time,a.Order_account,a.Order_money,a.Order_source,a.Order_name,a.Pay_way,a.Order_state
+        FROM caa_orderlist a
+        <where>
+
+            <if test="param.OrderId != null">
+                AND a.Order_id = #{param.OrderId}
+            </if>
+            <if test="param.OrderName != null">
+                AND a.Order_name LIKE CONCAT('%', #{param.OrderName}, '%')
+            </if>
+
+        </where>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="selectPageRel" resultType="com.eleadmin.order.caa_orderlist.entity.Order">
+        <include refid="selectSql"></include>
+    </select>
+
+    <!-- 查询全部 -->
+    <select id="selectListRel" resultType="com.eleadmin.order.caa_orderlist.entity.Order">
+        SELECT a.Order_id,a.Order_no,a.Order_time,a.Order_account,a.Order_money,a.Order_source,a.Order_name,a.Pay_way,a.Order_state
+        FROM ca85a_orderlist a
+        <where>
+
+            <if test="param.OrderId != null">
+                AND a.Order_id = #{param.OrderId}
+            </if>
+            <if test="param.OrderName != null">
+                AND a.Order_name LIKE CONCAT('%', #{param.OrderName}, '%')
+            </if>
+
+        </where>
+    </select>
+
+</mapper>

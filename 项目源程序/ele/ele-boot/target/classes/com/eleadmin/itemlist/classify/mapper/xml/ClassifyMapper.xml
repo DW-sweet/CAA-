@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleadmin.itemlist.classify.mapper.ClassifyMapper">
+
+    <!-- 关联查询sql -->
+    <sql id="selectSql">
+        SELECT a.classify_id,a.classify_name,a.quantity,a.navigation,a.install,a.unit
+        FROM test_classify a
+        <where>
+
+            <if test="param.classifyId != null">
+                AND a.classify_id = #{param.classifyId}
+            </if>
+            <if test="param.classifyName != null">
+                AND a.classify_name LIKE CONCAT('%', #{param.classifyName}, '%')
+            </if>
+
+        </where>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="selectPageRel" resultType="com.eleadmin.itemlist.classify.entity.Classify">
+        <include refid="selectSql"></include>
+    </select>
+
+    <!-- 查询全部 -->
+    <select id="selectListRel" resultType="com.eleadmin.itemlist.classify.entity.Classify">
+        SELECT a.classify_id,a.classify_name,a.quantity,a.navigation,a.install,a.unit
+        FROM test_classify a
+        <where>
+
+            <if test="param.classifyId != null">
+                AND a.classify_id = #{param.classifyId}
+            </if>
+            <if test="param.classifyName != null">
+                AND a.classify_name LIKE CONCAT('%', #{param.classifyName}, '%')
+            </if>
+
+        </where>
+    </select>
+
+</mapper>

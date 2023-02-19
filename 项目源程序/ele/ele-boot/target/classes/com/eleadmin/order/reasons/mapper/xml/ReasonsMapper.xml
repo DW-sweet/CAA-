@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleadmin.order.reasons.mapper.ReasonsMapper">
+
+    <!-- 关联查询sql -->
+    <sql id="selectSql">
+        SELECT a.Reasons_id,a.Reasons_name,a.code,a.time,a.yesno
+        FROM reasons a
+        <where>
+
+            <if test="param.ReasonsId != null">
+                AND a.Reasons_id = #{param.ReasonsId}
+            </if>
+            <if test="param.ReasonsName != null">
+                AND a.Reasons_name LIKE CONCAT('%', #{param.ReasonsName}, '%')
+            </if>
+
+        </where>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="selectPageRel" resultType="com.eleadmin.order.reasons.entity.Reasons">
+        <include refid="selectSql"></include>
+    </select>
+
+    <!-- 查询全部 -->
+    <select id="selectListRel" resultType="com.eleadmin.order.reasons.entity.Reasons">
+        SELECT a.Reasons_id,a.Reasons_name,a.code,a.time,a.yesno
+        FROM reasons a
+        <where>
+
+            <if test="param.ReasonsId != null">
+                AND a.Reasons_id = #{param.ReasonsId}
+            </if>
+            <if test="param.ReasonsName != null">
+                AND a.Reasons_name LIKE CONCAT('%', #{param.ReasonsName}, '%')
+            </if>
+
+        </where>
+    </select>
+
+</mapper>

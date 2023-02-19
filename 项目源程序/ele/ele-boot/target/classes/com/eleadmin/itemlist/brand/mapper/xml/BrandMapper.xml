@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleadmin.itemlist.brand.mapper.BrandMapper">
+
+    <!-- 关联查询sql -->
+    <sql id="selectSql">
+        SELECT a.brand_id,a.brand_name,a.alpha,a.score,a.bshow
+        FROM test_brand a
+        <where>
+
+            <if test="param.brandId != null">
+                AND a.brand_id = #{param.brandId}
+            </if>
+            <if test="param.brandName != null">
+                AND a.brand_name LIKE CONCAT('%', #{param.brandName}, '%')
+            </if>
+
+        </where>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="selectPageRel" resultType="com.eleadmin.itemlist.brand.entity.Brand">
+        <include refid="selectSql"></include>
+    </select>
+
+    <!-- 查询全部 -->
+    <select id="selectListRel" resultType="com.eleadmin.itemlist.brand.entity.Brand">
+        SELECT a.brand_id,a.brand_name,a.alpha,a.score,a.bshow
+        FROM test_brand a
+        <where>
+
+            <if test="param.brandId != null">
+                AND a.brand_id = #{param.brandId}
+            </if>
+            <if test="param.brandName != null">
+                AND a.brand_name LIKE CONCAT('%', #{param.brandName}, '%')
+            </if>
+
+        </where>
+    </select>
+
+</mapper>

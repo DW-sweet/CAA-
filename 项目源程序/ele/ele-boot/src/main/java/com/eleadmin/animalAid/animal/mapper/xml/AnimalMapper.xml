@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleadmin.animalAid.animal.mapper.AnimalMapper">
+
+    <!-- 关联查询sql -->
+    <sql id="selectSql">
+        SELECT a.animal_id,a.animal_name,a.arange,a.gender,a.master,a.adopt,a.ster
+        FROM test_animal a
+        <where>
+
+            <if test="param.animalId != null">
+                AND a.animal_id = #{param.animalId}
+            </if>
+            <if test="param.animalName != null">
+                AND a.animal_name LIKE CONCAT('%', #{param.animalName}, '%')
+            </if>
+
+        </where>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="selectPageRel" resultType="com.eleadmin.animalAid.animal.entity.Animal">
+        <include refid="selectSql"></include>
+    </select>
+
+    <!-- 查询全部 -->
+    <select id="selectListRel" resultType="com.eleadmin.animalAid.animal.entity.Animal">
+        SELECT a.animal_id,a.animal_name,a.arange,a.gender,a.master,a.adopt,a.ster
+        FROM test_animal a
+        <where>
+
+            <if test="param.animalId != null">
+                AND a.animal_id = #{param.animalId}
+            </if>
+            <if test="param.animalName != null">
+                AND a.animal_name LIKE CONCAT('%', #{param.animalName}, '%')
+            </if>
+
+        </where>
+    </select>
+
+</mapper>
